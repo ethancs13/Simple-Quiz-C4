@@ -98,3 +98,19 @@ body {
     margin: 0 5px;
     border: solid black
 }
+
+#result {
+    position:absolute;
+    top: 425px;
+    right: 330px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 140px;
+    color: black;
+    transition: opacity 1s ease-in-out;
+}
+.opacityZero {
+    opacity: 0;
+}

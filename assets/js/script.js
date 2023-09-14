@@ -63,6 +63,7 @@ function timer() {
 }
 
 function init() {
+
     if (f === 3) {
         clearInterval(startClock)
     } else if (f === 1){
@@ -81,6 +82,61 @@ function init() {
     if (f < objList.length-1) f++
     else f = 0;
 }
+
+function checkAns(event) {
+
+    if (f == 1){
+        console.log("beginning")
+    } else if (f == 2){
+        if (event.target.id == "option__1"){
+            correctAns()
+        } else {
+            incorrectAns()
+        }
+    } else if (f == 3){
+        if (event.target.id == "option__2"){
+            correctAns()
+        } else {
+            incorrectAns()
+        }
+    }
+
+
+    init()
+}
+function correctAns() {
+    //create element to display correct or incorrect
+    var result = $('<span>')
+    result.attr('id', 'result')
+    result.text("Correct!")
+
+    main__container.append(result) // add to document (body)
+
+    // use a setTimeout function to have it dissapear after '1 second'
+    setTimeout(function() {
+        result.addClass('opacityZero')
+
+        setTimeout(() => result.hide(), 1000)
+        
+    }, 400);
+}
+function incorrectAns() {
+    //create element to display correct or incorrect
+    var result = $('<span>')
+    result.attr('id', 'result')
+    result.text("Incorrect!")
+
+    main__container.append(result) // add to document (body)
+
+    // use a setTimeout function to have it dissapear after '1 second'
+    setTimeout(function() {
+        result.addClass('opacityZero')
+
+        setTimeout(() => result.hide(), 1000)
+        
+    }, 400);
+}
+
 function clear(){
     if (f !== 0) {main__content.html("")}
     else if (f === 0){
@@ -191,7 +247,8 @@ function createEl() {
 
         var option = $('<button>')
         option.addClass("option")
-        option.on('click', init)
+        option.on('click', checkAns)
+        option.attr("id", "option__" + i)
 
         option.text(values[i])
 

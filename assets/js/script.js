@@ -28,17 +28,33 @@ var main__container = $('.main__container');
 var main__header = $(".main__header");
 var main__content = $(".main__content");
 
+var clock_container = $(".clock_container");
+var clock_value = $(".clock_value");
+clock_value.text("clock")
+
+//timer variables
+var clockValue = 3;
+
 var currentScore = 0;
 
-if (localStorage.getItem("list")){
-    var highscoresList  = JSON.parse(localStorage.getItem("list"));
-} else {
-    var highscoresList = [];
-}
+if (localStorage.getItem("list"))
+{var highscoresList  = JSON.parse(localStorage.getItem("list"));}
+else
+{var highscoresList = [];}
 
 var f = 0;
 var values = null;
 
+var startClock = setInterval(timer, 1000)
+function timer() {
+    if(clockValue === -1){
+        alert("game over")
+        clearInterval(startClock)
+    }
+
+    clock_value.text(clockValue)
+    clockValue--;
+}
 
 function init() {
 

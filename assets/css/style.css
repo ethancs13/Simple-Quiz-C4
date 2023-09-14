@@ -102,8 +102,8 @@ body {
 
 #result {
     position:absolute;
-    top: 425px;
-    right: 330px;
+    top: 473px;
+    right: 26vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -123,6 +123,7 @@ body {
     padding: 10px;
     position: absolute;
     top: 115px;
-    left: 36vw;
+    /* center final score */
+    left: calc(50vw - 180px);
     border: solid black 0.5px;
 }

@@ -105,7 +105,7 @@ function highscoreInit() {
         localStorage.removeItem("user")
 
         var user = $('<span>')
-        user.addClass('highScoreAll')
+        user.addClass('highscore_container')
         user.data("number", counter)
         counter++;
 
@@ -117,7 +117,7 @@ function highscoreInit() {
 
         var btn = $('<button>')
         btn.text("delete")
-        btn.on('click', deleteHS)
+        btn.on('click', remove_highscore)
 
         user.append(name)
         user.append(score)
@@ -132,8 +132,30 @@ function highscoreInit() {
 
     f= 0;
 }
-function deleteHS(){
+
+
+function remove_highscore(e){
+    // get list from storage
+    var list = JSON.parse(localStorage.getItem("list"))
+
+    // get index
+    var index = $(e.target).parent().index()
     
+
+    if (list.length < 2) {
+        list = []
+        localStorage.clear()
+        highscoresList = list
+    } else {
+        // remove item at that index
+        list.splice(index, 1)
+        // update local storage
+        localStorage.setItem("list", JSON.stringify(list))
+        highscoresList = list
+    }
+    
+
+    $(e.target).parent().remove() // remove parent element of delete btn (highscore_container)from DOM
 }
 
 function createEl() {

@@ -29,6 +29,7 @@ var main__header = $(".main__header");
 var main__content = $(".main__content");
 
 var currentScore = 0;
+
 if (localStorage.getItem("list")){
     var highscoresList  = JSON.parse(localStorage.getItem("list"));
 } else {
@@ -75,6 +76,8 @@ function hsSetup() {
         score: currentScore
     }
 
+    // console.log(highscoresList)
+
     highscoresList.push(user);
     localStorage.setItem("list",JSON.stringify(highscoresList))
 
@@ -95,7 +98,6 @@ function highscoreInit() {
     createEl()
 
     var list = JSON.parse(localStorage.getItem("list"));
-    console.log(list)
 
     let counter = 0;
     for (i=0; i< list.length; i++){
@@ -131,7 +133,7 @@ function highscoreInit() {
     f= 0;
 }
 function deleteHS(){
-
+    
 }
 
 function createEl() {

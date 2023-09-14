@@ -20,6 +20,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
 
     height: 60px;
     width: 80%;
@@ -113,4 +114,15 @@ body {
 }
 .opacityZero {
     opacity: 0;
+}
+
+.finalScore {
+    text-align: center;
+    width: 360px;
+    margin: 0;
+    padding: 10px;
+    position: absolute;
+    top: 115px;
+    left: 36vw;
+    border: solid black 0.5px;
 }

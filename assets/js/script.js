@@ -2,16 +2,26 @@ var start = {
     header: "Simple Quiz"
 }
 var Q1 = {
-    header: "Question One",
-    Q1: "Q1",
-    Q2: "Q2",
+    header: "What does CSS stand for?",
+    Q1: "Cascading Style Sheets",
+    Q2: "Computer Style Sheets",
+    Q3: "Coloful Style Sheets",
+    Q4: "Creative Style Sheets",
     Ans: 1,
 }
 var Q2 = {
-    header: "Question Two",
-    Q1: "Q3",
-    Q2: "Q4",
+    header: "What is the correct HTML for referring to an external style sheet?",
+    Q1: "<stylesheet>mystyle.css</stylesheet>",
+    Q2: '<link rel="stylesheet" type="text/css" href="mystyle.css">',
+    Q3: '<style src="mystyle.css">',
     Ans: 2,
+}
+var Q3 = {
+    header: "Where in an HTML document is the correct place to refer to an external style sheet?",
+    Q1: "In the <body> section",
+    Q2: "In the <head> section",
+    Q3: "At the end of the document",
+    Ans: 1,
 }
 var enter = {
     header: "Enter your name"
@@ -20,7 +30,7 @@ var highscores = {
     header: "Highscores"
 }
 
-var objList = [start, Q1, Q2, enter, highscores]
+var objList = [start, Q1, Q2, Q3, enter, highscores]
 
 
 // variable initialization
@@ -64,7 +74,7 @@ function timer() {
 
 function init() {
 
-    if (f === 3) {
+    if (f === 4) {
         clearInterval(startClock)
     } else if (f === 1){
         clockValue = 10;
@@ -95,6 +105,12 @@ function checkAns(event) {
         }
     } else if (f == 3){
         if (event.target.id == "option__2"){
+            correctAns()
+        } else {
+            incorrectAns()
+        }
+    } else if (f == 4){
+        if (event.target.id == "option__3"){
             correctAns()
         } else {
             incorrectAns()
@@ -255,7 +271,12 @@ function createEl() {
         main__content.append(option)
     }
 
-    if (f === 3){
+    if (f === 4){
+
+        var score = $('<h2>')
+        score.addClass("finalScore")
+        score.text("Final Score: " + currentScore)
+
         var form = $('<input>')
         form.addClass("scoreName")
         form.placeholder = "enter your initials here"
@@ -264,6 +285,7 @@ function createEl() {
         submitBtn.text("Submit")
         submitBtn.on('click', hsSetup)
 
+        main__content.append(score)
         main__content.append(form)
         main__content.append(submitBtn)
     }

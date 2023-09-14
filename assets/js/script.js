@@ -31,9 +31,11 @@ var main__content = $(".main__content");
 var clock_container = $(".clock_container");
 var clock_value = $(".clock_value");
 clock_value.text("clock")
+var startClock;
+
 
 //timer variables
-var clockValue = 3;
+var clockValue = "clock";
 
 var currentScore = 0;
 
@@ -45,18 +47,28 @@ else
 var f = 0;
 var values = null;
 
-var startClock = setInterval(timer, 1000)
 function timer() {
     if(clockValue === -1){
-        alert("game over")
+        clock_value.text("0")
+        clockValue = "clock"
+        f = 3;
         clearInterval(startClock)
+        init()
+    } else {
+        currentScore = clockValue;
+        console.log(currentScore)
+        clock_value.text(clockValue)
+        clockValue--;
     }
-
-    clock_value.text(clockValue)
-    clockValue--;
 }
 
 function init() {
+    if (f === 3) {
+        clearInterval(startClock)
+    } else if (f === 1){
+        clockValue = 10;
+        startClock = setInterval(timer, 1000)
+    }
 
     clear()
 
@@ -175,7 +187,7 @@ function remove_highscore(e){
 }
 
 function createEl() {
-    for(i = 1; i < values.length - 1; i++){
+    for (i = 1; i < values.length - 1; i++){
 
         var option = $('<button>')
         option.addClass("option")

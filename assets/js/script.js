@@ -41,7 +41,7 @@ var main__content = $(".main__content");
 
 var clock_container = $(".clock_container");
 var clock_value = $(".clock_value");
-clock_value.text("clock")
+
 var startClock;
 
 var alertBox = $('.alertBox')
@@ -62,20 +62,29 @@ var f = 0;
 var values = null;
 
 function timer() {
+
+    
     if(clockValue === -1){
         f = 4;
-        clock_value.text("60")
-        clockValue = "clock"
+        clockValue = "30"
         clearInterval(startClock)
         init()
+        return
     } else {
+        clockValue--;
         currentScore = clockValue;
         clock_value.text(clockValue)
-        clockValue--;
     }
 }
 
 function init() {
+    if (f===1){
+        clock_value.text("30")
+    } else if (f===0 || f===5) {
+
+        clock_value.text("____")
+    }
+    
     if (f === 5){
         f = 0;
     }
@@ -83,7 +92,7 @@ function init() {
     if (f === 4) {
         clearInterval(startClock)
     } else if (f === 1){
-        clockValue = 2;
+        clockValue = 30;
         startClock = setInterval(timer, 1000)
     }
 
@@ -186,7 +195,6 @@ function hsSetup() {
     highscoresList.push(user);
     localStorage.setItem("list",JSON.stringify(highscoresList))
     localStorage.setItem("user", JSON.stringify(user))
-
     clear()
 }
 
@@ -289,6 +297,7 @@ function createEl() {
 
         var input = $('<div>')
         input.addClass("scoreName")
+        input.text('\u3164')
 
         var array = []
         console.log("listening")
@@ -298,18 +307,32 @@ function createEl() {
         root.on('keydown', eventListener)
         
         function eventListener(e) {
+            if ($('.scoreName').text() === '\u3164'){
+                $('.scoreName').text("")
+            }
 
             if (e.keyCode === 8){ // backspace
                 array.pop()
-                input.text("")
-                input.text(array.join(""))
+
+                var string = array.join("")
+
+                if (array.length === 0 || !array) {
+                    input.text("\u3164")
+                } else if (array.length === 1) {
+                    input.text(string)
+                } else if (array.length === 2){
+                    input.text(string)
+                } else if (array.length == 3) {
+                    input.text(string)
+                }
+
+
 
                 if(z < 1){
                     z = 0;
                 } else {
                     z--;
                 }
-
                 
             } else {
 
@@ -331,6 +354,7 @@ function createEl() {
                         currentName = input.text()
                         hsSetup();
                         highscoreInit()
+                        root.off('keydown', eventListener)
                         z=0;
                         return;
                     }
@@ -340,8 +364,6 @@ function createEl() {
                     z++
                 }
             }
-
-            removeEventListener('keydown', eventListener)
 
             e.preventDefault();
 

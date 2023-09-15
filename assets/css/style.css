@@ -32,7 +32,7 @@ body {
 .main__content {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
 
     height: 300px;
@@ -126,4 +126,19 @@ body {
     /* center final score */
     left: calc(50vw - 180px);
     border: solid black 0.5px;
+}
+
+.test {
+    height: 100px;
+    width: 100px;
+    background-color: red;
+    color: black;
+    font-size: 20px;;
+}
+
+.scoreName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }

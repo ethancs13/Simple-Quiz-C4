@@ -34,6 +34,7 @@ var objList = [start, Q1, Q2, Q3, enter, highscores]
 
 
 // variable initialization
+var root = $(':root')
 var main__container = $('.main__container');
 var main__header = $(".main__header");
 var main__content = $(".main__content");
@@ -165,9 +166,12 @@ function clear(){
     }
 }
 
+var currentName;
 function hsSetup() {
 
-    var val = $('.scoreName').val()
+    removeEventListener("keydown", eventListener)
+
+    var val = currentName
 
     clear()
 
@@ -258,6 +262,8 @@ function remove_highscore(e){
     $(e.target).parent().remove() // remove parent element of delete btn (highscore_container)from DOM
 }
 
+
+var eventListener;
 function createEl() {
     for (i = 1; i < values.length - 1; i++){
 
@@ -271,24 +277,57 @@ function createEl() {
         main__content.append(option)
     }
 
+    var z = 0;
     if (f === 4){
 
         var score = $('<h2>')
         score.addClass("finalScore")
         score.text("Final Score: " + currentScore)
 
-        var form = $('<input>')
-        form.addClass("scoreName")
-        form.placeholder = "enter your initials here"
-
         var submitBtn = $('<button>')
         submitBtn.text("Submit")
         submitBtn.on('click', hsSetup)
 
+        var input = $('<div>')
+        input.addClass("scoreName")
+
+        var array = []
+
+        eventListener = root.on('keydown', (e) => {
+
+            if (e.keyCode === 8){
+                array.pop()
+                z--;
+                input.text("")
+                input.append(array.toString(','))
+            } else if (z === 2){
+                console.log("Press any key to continue...")
+                array.push(e.key.toUpperCase())
+                input.append(array[2])
+                z++
+            } else if (z < 3){
+                z++;
+                array.push(e.key.toUpperCase())
+                input.append(array[z-1])
+                
+            } else {
+                console.log("end")
+                currentName = input.text()
+                hsSetup();
+                z=0;
+            }
+            console.log(array)
+
+
+
+        })
+        
+
         main__content.append(score)
-        main__content.append(form)
-        main__content.append(submitBtn)
+        main__content.append(input)
     }
 }
+
+// timer bug (at end)
 
 init()

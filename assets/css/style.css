@@ -1,5 +1,5 @@
 :root {
-
+    --bg-color: cadetblue;
 }
 
 body {
@@ -12,7 +12,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 45%;
-    height: 500px;
+    height: 100vh;
     background-color: cadetblue;
 
 }
@@ -35,18 +35,11 @@ body {
     justify-content: flex-start;
     align-items: center;
 
-    height: 300px;
+    height: auto;
+    height: 76vh;
     width: 90%;
     background-color: white;
     margin-top: 2rem;
-}
-
-#test {
-    position: absolute;
-    right: 31%;
-    top: 45%;
-    height: 40px;
-    width: 40px;
 }
 
 .scoreName {
@@ -60,23 +53,32 @@ body {
 .option {
     height: 40px;
     width: 80%;
-    background-color: black;
+    background-color: var(--bg-color);
     color:white;
+    border: solid black;
+    border-radius: 20px;
+    margin: 10px;
 }
 
 .highscore_container {
     display: flex;
-    height: 60px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 20px;
+    padding: 7px;
+    height: 20px;
     width: 80%;
-    background-color: black;
+    background-color: var(--bg-color);
     color: white;
+
+    border: solid black;
+    border-radius: 20px;
 
     justify-content: space-around;
     align-items: center;
 }
 .highscore_container div{
     padding: 10px;
-    border: solid white;
 }
 
 .clock_container {
@@ -102,8 +104,8 @@ body {
 
 #result {
     position:absolute;
-    top: 473px;
-    right: 26vw;
+    bottom: 10%;
+    right: 30vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -118,27 +120,53 @@ body {
 
 .finalScore {
     text-align: center;
-    width: 360px;
+    width: 200px;
     margin: 0;
     padding: 10px;
     position: absolute;
     top: 115px;
     /* center final score */
-    left: calc(50vw - 180px);
+    right: 20px;
     border: solid black 0.5px;
-}
-
-.test {
-    height: 100px;
-    width: 100px;
-    background-color: red;
-    color: black;
-    font-size: 20px;;
 }
 
 .scoreName {
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    margin-top: 50px;
+    border-bottom: solid black;
+    width: 200px;
+    letter-spacing: 20px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.restart-btn {
+    position: absolute;
+    top: 130px;
+    left: 66%;
+
+}
+.start-btn {
+    position: absolute;
+    top: 300px;
+    padding: 10px;
+    width: 20%;
+
+    &&:hover {
+        background-color: var(--bg-color);
+    }
+}
+
+.alert {
+    display: flex;
+    position: absolute;
+    top: 10px;
+    justify-content: center;
+    width: 75%;
+    height: 40px;
+    background-color: lightblue;
+
+    transition: opacity 2s;
 }

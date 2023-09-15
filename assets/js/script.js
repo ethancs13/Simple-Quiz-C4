@@ -44,6 +44,8 @@ var clock_value = $(".clock_value");
 clock_value.text("clock")
 var startClock;
 
+var alertBox = $('.alertBox')
+
 
 //timer variables
 var clockValue = "clock";
@@ -61,10 +63,10 @@ var values = null;
 function timer() {
     if(clockValue === -1){
         f = 4;
-        clock_value.text("0")
+        clock_value.text("60")
         clockValue = "clock"
         clearInterval(startClock)
-        hsSetup()
+        init()
     } else {
         currentScore = clockValue;
         clock_value.text(clockValue)
@@ -73,11 +75,14 @@ function timer() {
 }
 
 function init() {
+    if (f === 5){
+        f = 0;
+    }
 
     if (f === 4) {
         clearInterval(startClock)
     } else if (f === 1){
-        clockValue = 3;
+        clockValue = 60;
         startClock = setInterval(timer, 1000)
     }
 
@@ -158,6 +163,7 @@ function clear(){
     else if (f === 0){
         main__content.html("")
         var startBtn = $('<button>')
+        startBtn.addClass("start-btn")
         startBtn.text("start")
         startBtn.on('click', init)
 
@@ -166,40 +172,23 @@ function clear(){
 }
 
 var currentName;
-function hsSetup() {
 
-    if(f===5){
-        console.log("hi")
-    }
+function hsSetup() {
 
     removeEventListener("keydown", eventListener)
 
     var val = currentName
 
-    clear()
-
-    var user = {
-        name: val,
-        score: currentScore
-    }
+    var user = {name: val,
+        score: currentScore}
 
     // console.log(highscoresList)
 
     highscoresList.push(user);
     localStorage.setItem("list",JSON.stringify(highscoresList))
+    localStorage.setItem("user", JSON.stringify(user))
 
-    var userString = JSON.stringify(user)
-
-    localStorage.setItem("user", userString)
-
-    if(f === 5){
-        highscoreInit()
-    } else {
-        console.log("here")
-        f=4
-        init()
-    }
-    
+    clear()
 }
 
 function highscoreInit() {
@@ -241,11 +230,10 @@ function highscoreInit() {
     }
 
     var submitBtn = $('<button>')
+    submitBtn.addClass("restart-btn")
     submitBtn.text("restart")
     submitBtn.on('click', init)
     main__content.append(submitBtn)
-
-    f= 0;
 }
 
 
@@ -289,7 +277,6 @@ function createEl() {
     }
 
     var z = 0;
-    var regex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]$/;
 
     if (f === 4){
 
@@ -297,36 +284,62 @@ function createEl() {
         score.addClass("finalScore")
         score.text("Final Score: " + currentScore)
 
-        var submitBtn = $('<button>')
-        submitBtn.text("Submit")
-        submitBtn.on('click', hsSetup)
-
         var input = $('<div>')
         input.addClass("scoreName")
 
         var array = []
+        console.log("listening")
+
+
 
         eventListener = root.on('keydown', (e) => {
-
-            
 
             if (e.keyCode === 8){ // backspace
                 array.pop()
                 input.text("")
                 input.text(array.join(""))
 
-                z--;
+                if(z < 1){
+                    z = 0;
+                } else {
+                    z--;
+                }
+
+                
             } else {
-                if (z < 3){ // < 3
+                console.log(z)
+
+                if (z < 4){ // < 3 (0, 1, 2)
+                    
+                    if (z === 2){
+                        var alert = $('<span>')
+                        alert.addClass("alert")
+                        alert.text("press any key to submit")
+                        console.log(alert)
+                        alertBox.append(alert)
+    
+                        setTimeout(function() {
+                            alert.addClass('opacityZero')
+                    
+                            setTimeout(() => alert.hide(), 4000)
+                            
+                        }, 2000);
+                    } else if (z === 3) { // 3
+                    
+                        currentName = input.text()
+                        hsSetup();
+                        highscoreInit()
+                        z=0;
+                        return;
+                    }
+
                     array.push(e.key.toUpperCase())
                     input.append(array[z])
                     z++
+                    console.log("push")
+
+
                     
-                }  else if (z === 3) { // 3
-                    console.log("end")
-                    currentName = input.text()
-                    hsSetup();
-                    z=0;
                 }
             }
 

@@ -48,7 +48,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Website Preview][product-screenshot]](.Capture.PNG)
+[![Website Preview][product-screenshot]](Capture.PNG)
 
 Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `ethancs13`, `module-four-challenge`, `ethansroka@gmail.com`, `Simple Quiz`
 
@@ -118,6 +118,6 @@ Project Link: [https://github.com/ethancs13/module-four-challenge](https://githu
 
 
 
-
+[product-screenshot]: Capture.PNG
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 

@@ -83,7 +83,7 @@ function init() {
     if (f === 4) {
         clearInterval(startClock)
     } else if (f === 1){
-        clockValue = 60;
+        clockValue = 2;
         startClock = setInterval(timer, 1000)
     }
 

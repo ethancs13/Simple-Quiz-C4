@@ -55,7 +55,8 @@ var currentScore = 0;
 if (localStorage.getItem("list"))
 {var highscoresList  = JSON.parse(localStorage.getItem("list"));}
 else
-{var highscoresList = [];}
+{var highscoresList = [];
+localStorage.setItem("list", "")}
 
 var f = 0;
 var values = null;
@@ -175,8 +176,6 @@ var currentName;
 
 function hsSetup() {
 
-    removeEventListener("keydown", eventListener)
-
     var val = currentName
 
     var user = {name: val,
@@ -214,12 +213,17 @@ function highscoreInit() {
         counter++;
 
         var name = $('<div>')
+        name.addClass("hs-name")
         name.text(list[i].name)
 
+        console.log(name)
+
         var score = $('<div>')
+        score.addClass("hs-score")
         score.text(list[i].score)
 
         var btn = $('<button>')
+        btn.addClass("del-btn")
         btn.text("delete")
         btn.on('click', remove_highscore)
 
@@ -262,7 +266,6 @@ function remove_highscore(e){
 }
 
 
-var eventListener;
 function createEl() {
     for (i = 1; i < values.length - 1; i++){
 
@@ -292,7 +295,9 @@ function createEl() {
 
 
 
-        eventListener = root.on('keydown', (e) => {
+        root.on('keydown', eventListener)
+        
+        function eventListener(e) {
 
             if (e.keyCode === 8){ // backspace
                 array.pop()
@@ -307,7 +312,6 @@ function createEl() {
 
                 
             } else {
-                console.log(z)
 
                 if (z < 4){ // < 3 (0, 1, 2)
                     
@@ -315,7 +319,6 @@ function createEl() {
                         var alert = $('<span>')
                         alert.addClass("alert")
                         alert.text("press any key to submit")
-                        console.log(alert)
                         alertBox.append(alert)
     
                         setTimeout(function() {
@@ -325,7 +328,6 @@ function createEl() {
                             
                         }, 2000);
                     } else if (z === 3) { // 3
-                    
                         currentName = input.text()
                         hsSetup();
                         highscoreInit()
@@ -336,17 +338,14 @@ function createEl() {
                     array.push(e.key.toUpperCase())
                     input.append(array[z])
                     z++
-                    console.log("push")
-
-
-                    
                 }
             }
 
-            this.event.preventDefault();
+            removeEventListener('keydown', eventListener)
 
-        })
-        
+            e.preventDefault();
+
+        }
 
         main__content.append(score)
         main__content.append(input)

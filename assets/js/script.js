@@ -64,7 +64,7 @@ var values = null;
 function timer() {
 
     
-    if(clockValue === -1){
+    if(clockValue === 0){
         f = 4;
         clockValue = "30"
         clearInterval(startClock)

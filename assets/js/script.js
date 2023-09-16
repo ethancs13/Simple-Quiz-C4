@@ -255,8 +255,8 @@ function highscoreInit() {
 function HS_height() {
     if (highscoresList.length > 6){
             
-        var heightCalc = (highscoresList.length * 61) + "px"
-        var heightMain = (highscoresList.length * 61) + 180 + "px"
+        var heightCalc = (highscoresList.length * 62.5) + "px"
+        var heightMain = (highscoresList.length * 62.5) + 180 + "px"
     } else {
         var heightCalc = '400px'
         var heightMain = '580px'

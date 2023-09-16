@@ -414,6 +414,4 @@ root.on("click", () => {
     }
 })
 
-// timer bug (at end)
-
 init()

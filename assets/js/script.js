@@ -24,7 +24,7 @@ var Q3 = {
     Ans: 1,
 }
 var enter = {
-    header: "Enter your name"
+    header: "Enter initials"
 }
 var highscores = {
     header: "Highscores"
@@ -60,6 +60,7 @@ localStorage.setItem("list", "")}
 
 var f = 0;
 var values = null;
+heightFunction()
 
 function timer() {
 
@@ -78,6 +79,8 @@ function timer() {
 }
 
 function init() {
+    
+
     if (f===1){
         clock_value.text("30")
     } else if (f===0 || f===5) {
@@ -178,7 +181,9 @@ function clear(){
         startBtn.on('click', init)
 
         main__content.append(startBtn)
+        
     }
+    
 }
 
 var currentName;
@@ -224,8 +229,6 @@ function highscoreInit() {
         name.addClass("hs-name")
         name.text(list[i].name)
 
-        console.log(name)
-
         var score = $('<div>')
         score.addClass("hs-score")
         score.text(list[i].score)
@@ -248,6 +251,29 @@ function highscoreInit() {
     main__content.append(submitBtn)
 }
 
+
+function HS_height() {
+    if (highscoresList.length > 6){
+            
+        var heightCalc = (highscoresList.length * 61) + "px"
+        var heightMain = (highscoresList.length * 61) + 180 + "px"
+    } else {
+        var heightCalc = '400px'
+        var heightMain = '580px'
+    }
+
+    main__container.height(heightMain)
+    main__content.height(heightCalc)
+}
+function heightFunction() {
+    
+        var heightCalc = '400px'
+        var heightMain = '580px'
+    
+
+    main__container.height(heightMain)
+    main__content.height(heightCalc)
+}
 
 function remove_highscore(e){
     // get list from storage
@@ -275,6 +301,7 @@ function remove_highscore(e){
 
 
 function createEl() {
+    
     for (i = 1; i < values.length - 1; i++){
 
         var option = $('<button>')
@@ -294,6 +321,9 @@ function createEl() {
         var score = $('<h2>')
         score.addClass("finalScore")
         score.text("Final Score: " + currentScore)
+
+
+
 
         var input = $('<div>')
         input.addClass("scoreName")
@@ -356,6 +386,7 @@ function createEl() {
                         highscoreInit()
                         root.off('keydown', eventListener)
                         z=0;
+                        HS_height()
                         return;
                     }
 
@@ -373,6 +404,15 @@ function createEl() {
         main__content.append(input)
     }
 }
+root.on("click", () => {
+    if (f === 5 && document.querySelector('.highscore_container')){
+        console.log(f)
+        HS_height()
+    }
+    else {
+        heightFunction()
+    }
+})
 
 // timer bug (at end)
 
